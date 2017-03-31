@@ -162,8 +162,7 @@ function exec_sql(){
 
         console.log(data)
         if(data.code == 500){
-            $("#title_box").html()
-            $("#exec_result_box").html("<p style='padding:10px' class='text-danger'>执行失败,错误信息如下:<br/>"+data.message+"</p>")
+            $("#tab-content").html("<p style='padding:10px' class='text-danger'>执行失败,错误信息如下:<br/>"+data.message+"</p>")
         }else {
             nav_tabs_html = build_nav_tabs(data.data)
             tab_content = build_tab_content(data.data)
@@ -194,8 +193,7 @@ function exec_selected_sql(){
 
         console.log(data)
         if(data.code == 500){
-            $("#title_box").html()
-            $("#exec_result_box").html("<p style='padding:10px' class='text-danger'>执行失败,错误信息如下:<br/>"+data.message+"</p>")
+            $("#tab-content").html("<p style='padding:10px' class='text-danger'>执行失败,错误信息如下:<br/>"+data.message+"</p>")
         }else {
             nav_tabs_html = build_nav_tabs(data.data)
             tab_content = build_tab_content(data.data)

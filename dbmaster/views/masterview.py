@@ -227,8 +227,9 @@ def db_execute():
 def get_exec_result(sql_content):
     print "[get_exec_result]", sql_content
     result_set = []
+    
 
-    if 'limit' not in sql_content:
+    if 'limit' not in sql_content and 'LIMIT' not in sql_content:
         sql_content = "%s limit 200" % sql_content
 
     t_start = time.time()
