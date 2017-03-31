@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="page-header"> <h3>线上数据库变更单</h3></div>
+        <p class="pull-right">
+          <a class="btn btn-primary" href="/dbmaster/new_update_application/">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;创建新的申请单</a>
+        </p>
+        <table class="table table-bordered">
+          <tr class="info">
+            <th width="20%">申请时间</th>
+            <th>申请原因</th>
+            <th>变更内容</th>
+            <th>当前操作人</th>
+            <th>状态</th>
+          </tr>
+        {% for a in application_list %}
+        <tr>
+          <td>{{a.create_time}}</td>
+          <td>{{a.reason}}</td>
+          <td>
+            <pre>{{a.sql_content}}</pre>
+          </td>
+          <td>{{a.opt_account_name}}</td>
+          <td>{{a.status}}</td>
+      </tr>
+        {% endfor %}
+        </table>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $("#nav_update_application").addClass("active")
+
+</script>
+
+{% endblock %}

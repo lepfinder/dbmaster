@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="page-header"> <h3>SQL 查询历史</h3></div>
+
+        <p class=""><small><span class="text-warning">说明 : </span><span class="text-muted">(只显示最近的50条查询记录)</span></small></p>
+        <table class="table table-bordered">
+          <tr class="info">
+            <th width="20%">操作时间</th>
+            <th>操作内容</th>
+          </tr>
+        {% for a in query_list %}
+        <tr>
+          <td>
+          {{a.op_time}}
+        </td>
+        <td>
+          <pre>{{a.content}}</pre>
+        </td>
+      </tr>
+        {% endfor %}
+        </table>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $("#nav_sql_history").addClass("active")
+
+</script>
+
+{% endblock %}

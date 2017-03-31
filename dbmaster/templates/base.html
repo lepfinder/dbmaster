@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>DBMASTER-千丁</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" media="screen" />
+	{% block css %}{% endblock %}
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="{{url_for('masterview.index')}}">DB-MASTER</a>
+	    </div>
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li id="nav_sql_query"><a href="{{url_for('masterview.index')}}">SQL 查询器</a></li>
+		        <li id="nav_sql_history"><a href="{{url_for('masterview.sql_history')}}">查询历史</a></li>
+		        <li id="nav_update_application"><a href="{{url_for('masterview.update_application')}}">数据库变更申请</a></li>
+		        <li id="nav_about"><a href="{{url_for('masterview.about')}}">关于</a></li>
+		      </ul>
+
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a href="{{url_for('masterview.index')}}" >{{current_user.name}}</a></li>
+		        {% if current_user.is_authenticated %}
+		        <li><a href="{{url_for('accounts.logout')}}" >退出</a></li>
+		        {% endif %}
+		        {% if current_user.is_anonymous %}
+		        <li><a href="{{url_for('accounts.login')}}" >登录</a></li>
+		        <li><a href="{{url_for('accounts.register')}}" >注册</a></li>
+		        {% endif %}
+		      </ul>
+		      
+	      </div>
+	  </div><!-- /.container-fluid -->
+	</nav>
+     
+    <div class="container">
+
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	  {% if messages %}
+	    {% for category, message in messages %}
+		<div class="alert alert-{{ category }}" style="margin-top:15px;">  
+			   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
+			   提示：{{ message }} 
+		</div>  
+	    {% endfor %}
+	  {% endif %}
+	{% endwith %}
+
+	</div>
+
+    <div class="content">
+	{% block content %}{% endblock %}
+	</div>
+
+	<div ID="right-box" class="well text-center">
+		© 2016 北京千丁互联科技有限公司 All rights reserved. powered by <a target="_blank" href="https://github.com/lepfinder/">xiexiyang</a>
+	</div>
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	{% block js %}{% endblock %}
+</body>
+</html>

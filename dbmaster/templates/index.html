@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/codemirror/codemirror.css">
+<link rel="stylesheet" href="/static/codemirror/hint/show-hint.css">
+<link rel="stylesheet" href="/static/ztree/zTreeStyle.css">
+{% endblock %}
+{% block content %}
+<div class="container content">
+
+<div>
+  <div class="col-md-3" id="sidebar_container">
+
+    <div id="sidebar">
+      <ol class="breadcrumb">
+        <li>数据库</li>
+      </ol>
+     <ul id="treeDemo" class="ztree"></ul>
+    </div>
+  </div>
+  <div class="col-md-9">
+      <h3 class="page-header">
+        SQL 查询器
+      </h3>
+      <div class="">
+        <div class="sql_content">
+          <textarea rows="10" name="sql_content" id="sql_content" >{{ sql_content }}</textarea>
+        </div>
+        <button class="btn btn-primary" onclick="exec_sql()" id="btn_exec_sql"><span class="glyphicon glyphicon-play"></span>&nbsp;执行 SQL</button>
+        <button class="btn btn-success" onclick="exec_selected_sql()" id="btn_exec_selected_sql"><span class="glyphicon glyphicon-play"></span>&nbsp;执行选中的 SQL</button>
+        <button class="btn btn-warning" onclick="format_sql()" id="btn_format_sql"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;美化 SQL</button>
+      </div>
+
+      <div class="result-box">
+        <ul class="nav nav-tabs" role="tablist" id="nav-tabs">
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" id="tab-content">
+        </div>
+
+      </div>
+
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="table_info_model" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div id="" style="padding: 0px 20px;">
+        <h3 class="page-header">表结构</h3>
+        <table  class="table table-bordered">
+          <thead>
+            <th>序号</th>
+            <th>字段名</th>
+            <th>字段类型</th>
+            <th>默认值</th>
+            <th>是否允许为空</th>
+            <th>字符集</th>
+            <th>主键</th>
+            <th>备注</th>
+          </thead>
+          <tbody id="table-info-box"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="/static/codemirror/codemirror.js"></script>
+  <script src="/static/codemirror/mode/sql/sql.js"></script>
+  <script src="/static/codemirror/hint/show-hint.js"></script>
+  <script src="/static/codemirror/hint/sql-hint.js"></script>
+  <script src="/static/ztree/jquery.ztree.core.min.js"></script>
+  <script src="/static/app/index.js"></script>
+
+  <script type="application/javascript">
+    $("#nav_sql_query").addClass("active")
+  </script>
+{% endblock %}
+
+
+

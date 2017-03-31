@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    	<div class="page-header"> <h3>系统操作日志</h3></div>
+		
+      <table class="table table-bordered">
+      	<tr class="info">
+      		<th>操作时间</th>
+      		<th>操作IP</th>
+      		<th>操作人</th>
+      		<th>操作内容</th>
+      	</tr>
+      {% for a in page_obj.items %}
+  		<tr>
+	    	<td>
+				{{a.op_time}}
+			</td>
+			<td>
+				{{a.op_ip}}
+			</td>
+			<td>
+				{{a.account_name}}
+			</td>
+			<td>
+				{{a.content}}
+			</td>
+		</tr>
+      {% endfor %}
+      </table>
+    </div>
+    <div class="row">
+    	<nav class="pull-right">
+
+		  <ul class=pagination>
+		  	<li>
+		      <a href="javascript:go_page(1)" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+			  {%- for page in page_obj.iter_pages() %}
+			    {% if page %}
+			      {% if page != page_obj.page %}
+			        <li><a href="javascript:go_page({{page}})">{{ page }}</a></li>
+			      {% else %}
+			        <li class="active"><a>{{ page }}</a></li>
+			      {% endif %}
+			    {% else %}
+			    {% endif %}
+			  {%- endfor %}
+			  <li>
+		      <a href="javascript:go_page({{page_obj.pages}})" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	function go_page(page){
+		$("#page_index").val(page);
+		location.href = "/books/syslog/"+page;
+	}
+</script>
+
+{% endblock %}

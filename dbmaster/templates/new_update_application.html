@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/codemirror/codemirror.css">
+<link rel="stylesheet" href="/static/codemirror/hint/show-hint.css">
+{% endblock %}
+{% block content %}
+<div class="container content">
+
+<div>
+
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <h3 class="page-header">
+        新建数据库变更单
+      </h3>
+      <div class="">
+        <div class="form-group">
+          <label for="reason">申请原因:</label>
+          <div>
+            <textarea id="reason" rows="5" style="width: 96%"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sql_content">SQL 内容:</label>
+          <div class="sql_content">
+            <textarea rows="10" name="sql_content" id="sql_content" >{{ sql_content }}</textarea>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="new_application()"><span class="glyphicon glyphicon-play"></span>&nbsp;提交</button>
+      </div>
+
+  </div>
+</div>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="/static/codemirror/codemirror.js"></script>
+  <script src="/static/codemirror/mode/sql/sql.js"></script>
+  <script src="/static/codemirror/hint/show-hint.js"></script>
+  <script src="/static/codemirror/hint/sql-hint.js"></script>
+  <script src="/static/app/application.js"></script>
+
+  <script type="application/javascript">
+    $("#nav_update_application").addClass("active")
+
+  </script>
+{% endblock %}
+
+
+

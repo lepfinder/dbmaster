@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    	<div class="page-header"> <h3>还书确认列表</h3></div>
+		
+      <table class="table table-bordered">
+      	<tr class="info">
+      		<th>申请时间</th>
+      		<th>内容</th>
+      		<th>操作</th>
+      	</tr>
+      {% for a in tasks %}
+  		<tr>
+	    	<td>
+				{{a.create_time}}
+			</td>
+			<td>
+				{{a.content}}
+			</td>
+			<td>
+				<a href="javascript:confirm_reback({{a.id}})" class="btn btn-primary">确认</a>
+			</td>
+		</tr>
+      {% endfor %}
+      </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	function confirm_reback(id){
+		location.href = "/books/confirm_reback/"+id;
+	}
+</script>
+
+{% endblock %}

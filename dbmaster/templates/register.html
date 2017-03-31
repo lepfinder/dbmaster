@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+  	<h3>注册新用户</h3>
+  </div>
+  <form class="form-horizontal" action="{{url_for('accounts.register')}}" method="post">
+    <div class="form-group" >
+      <label for="login_name" class="col-sm-2 control-label">用户名：</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="login_name" placeholder="请输入登录用户名">
+      </div>
+    </div>
+    <div class="form-group" >
+      <label for="username" class="col-sm-2 control-label">真实姓名：</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="name" placeholder="请输入你的大名">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="passwd" class="col-sm-2 control-label">密码：</label>
+      <div class="col-sm-6">
+        <input type="password" class="form-control" name="passwd" placeholder="密码">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">注册</button>
+        &nbsp;&nbsp;<small><a href="{{url_for('accounts.login')}}">已有账户，直接登录</a></small>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

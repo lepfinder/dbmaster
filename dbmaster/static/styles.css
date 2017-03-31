@@ -1,0 +1,39 @@
+.content{
+	min-height: 760px;
+}
+.navbar{
+	margin-bottom: 0px;
+}
+.breadcrumb{
+	margin-bottom: 0px;
+}
+.col-md-2 .col-md-3{
+	padding: 0px 5px;
+}
+
+#sidebar_container{
+	padding-top:15px;
+	padding-right:10px;
+	border-right:solid 1px #cccccc;
+}
+
+#sidebar{
+	overflow: auto;
+}
+
+.sql_content{
+	width: 96%;
+	border: solid 1px #86989B;
+	padding: 0px 0px;
+	margin-bottom: 10px;
+}
+
+.page-header{
+	margin-top: 20px;
+}
+
+.result-box{
+	margin-top: 20px;
+	width: 100%;
+	overflow: auto;
+}
