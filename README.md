@@ -14,6 +14,9 @@ dbmaster是一个python编写的在线数据库查询客户端，可以有效隔
 ## 安装和启动
 
 ```
+git clone  https://github.com/lepfinder/dbmaster.git
+cd dbmaster/
+
 pip install virtualenv
 
 # 激活虚拟环境
