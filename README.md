@@ -1,5 +1,6 @@
 ## 介绍
 dbmaster是一个python编写的在线数据库查询客户端，可以有效隔离线上数据库环境，提供了一系列便于开发者使用的特性。操作体验尽量兼容navcat。
+github地址：https://github.com/lepfinder/dbmaster
 
 ## 特性
 1. 支持SQL语法高亮和自动提示
@@ -18,6 +19,11 @@ git clone  https://github.com/lepfinder/dbmaster.git
 cd dbmaster/
 
 pip install virtualenv
+
+下载代码
+
+git clone https://github.com/lepfinder/dbmaster.git
+
 
 # 激活虚拟环境
 virtualenv venv
@@ -88,6 +94,9 @@ http://www.treejs.cn/v3/main.php#_zTreeInfo
 ## TODO
 - 保存当前查询sql为模板,配置图表渲染
 - 线上数据库变更申请流程
+
+## 一些参考资料
+http://www.cnblogs.com/Ray-liang/p/4837850.html
 
 如果你有什么好的想法，欢迎告诉我（sdlgxxy@qq.com）
 

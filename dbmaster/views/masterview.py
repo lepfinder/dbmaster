@@ -52,7 +52,13 @@ def loadSchecma():
 @dbmaster.route("/", methods=("GET", "POST"))
 @login_required
 def index():
-    return render_template("index.html", databases=databases_schema)
+    # 查询上次查询的sql
+    query_list = Querylog.query.filter_by(account_id=current_user.id).order_by(Querylog.id.desc()).limit(1)
+
+    sql_content = ''
+    if query_list:
+        sql_content = query_list[0].content
+    return render_template("index.html", databases=databases_schema,sql_content = sql_content)
 
 
 # sql查询历史
@@ -241,7 +247,15 @@ def get_exec_result(sql_content):
     cursor = exec_result.cursor
     titles = cursor.description
     for i in exec_result:
-        result_set.append(list(i))
+        l = list(i)
+        l2 = []
+        for j in l:
+            # 有些日期格式的转换为字符串输出到前台
+            if isinstance(j,datetime.datetime):
+                l2.append(j.strftime("%Y-%m-%d %H:%M:%S"))
+            else:
+                l2.append(j)
+        result_set.append(l2)
 
 
     result = {

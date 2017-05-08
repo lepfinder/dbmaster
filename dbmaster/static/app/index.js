@@ -113,12 +113,13 @@ function build_tab_content(resultlist){
         content +='<div class="breadcrumb"><small>执行时间 : <strong>'+data.cost_time+' sec </strong> &nbsp;&nbsp;条数 : <strong>'+data.rowcount+'条</strong></small></div>'
         content +='<table class="table table-bordered">'
         content +='<tr class="success">'
-        content += "</tr>"
         for (j in data.titles) {
             content += "<td>";
             content += data.titles[j][0];
             content += "</td>";
         }
+        content += "</tr>"
+        
         content += '<tbody>'
         for (j in data.result_set) {
             content += "<tr>";
