@@ -41,6 +41,8 @@ config.cfg
 # 启动服务器
 gunicorn -w 4 -b 127.0.0.1:8880 wsgi:application
 
+nohup gunicorn -w 2 -b 10.37.5.116:8880 wsgi:application 2>&1 &
+
 访问: http://localhost:8880/dbmaster/
 ```
 
@@ -50,6 +52,13 @@ gunicorn -w 4 -b 127.0.0.1:8880 wsgi:application
 
 - Ctrl+R / Cmd+R 执行sql
 - Ctrl+F / Cmd+F 格式化当前编辑器的sql
+
+### 支持Inception
+
+
+#### 部署
+
+- 指定inception的备份服务器为dbmaster所在的数据库服务器
 
 
 

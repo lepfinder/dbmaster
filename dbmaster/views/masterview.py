@@ -14,6 +14,8 @@ from dbmaster.models import  Querylog, Syslog, UpdateApplication
 from dbmaster.helpers import save_syslog
 from dbmaster.extensions import db
 from dbmaster.dbutils import DbUtil
+import MySQLdb
+
 
 dbmaster = Module(__name__)
 
@@ -103,6 +105,63 @@ def new_update_application():
     else:
         return render_template("new_update_application.html")
 
+
+# 新建数据库变更单
+@dbmaster.route("/audit_sql_application/<int:application_id>", methods=("GET", "POST"))
+@login_required
+def audit_sql_application(application_id):
+    application = UpdateApplication.query.filter_by(id=application_id).first()
+    
+    sql_content = application.sql_content
+    sql_content = sqlparse.format(sql_content,reindent=True)
+
+    return render_template("audit_sql_application.html",application=application,sql_content=sql_content)
+
+
+# 执行数据库变更
+@dbmaster.route("/exec_sql_application/", methods=("GET", "POST"))
+@login_required
+def exec_sql_application():
+    try:
+        application_id = request.form['application_id']
+
+        application = UpdateApplication.query.filter_by(id=application_id).first()
+        exec_result = []
+        if application:
+            print application.sql_content
+
+            sql='''/*--user=root;--password=123456;--host=11.11.11.12;--execute=1;--port=3306;*/\
+                inception_magic_start;\
+                %s
+                inception_magic_commit;''' % application.sql_content
+            try:
+                conn=MySQLdb.connect(host='11.11.11.10',user='',passwd='',db='',port=6669)
+                cur=conn.cursor()
+                ret=cur.execute(sql)
+                result=cur.fetchall()
+                num_fields = len(cur.description)
+                field_names = [i[0] for i in cur.description]
+                print field_names
+                for row in result:
+                    print row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10]
+                    exec_result.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]))
+                cur.close()
+                conn.close()
+            except MySQLdb.Error,e:
+                         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+
+        return jsonify({
+            "code": 200,
+            "message": "success",
+            "exec_result":exec_result
+        })
+
+    except Exception as e:
+        print e
+        return jsonify({
+            "code": 500,
+            "message": "%s" % e
+        })
 
 #
 @dbmaster.route("/znode_content/", methods=("GET", "POST"))
@@ -230,11 +289,12 @@ def db_execute():
         })
 
 
+
+
 def get_exec_result(sql_content):
     print "[get_exec_result]", sql_content
     result_set = []
     
-
     if 'limit' not in sql_content and 'LIMIT' not in sql_content:
         sql_content = "%s limit 200" % sql_content
 

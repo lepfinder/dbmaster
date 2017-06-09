@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/codemirror/codemirror.css">
+<link rel="stylesheet" href="/static/codemirror/hint/show-hint.css">
+{% endblock %}
+{% block content %}
+<div class="container content">
+
+<div class="row">
+
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <h3 class="page-header">
+        SQL 审核
+      </h3>
+      <div class="">
+        <div class="form-group">
+          <label for="reason"><strong>申请人：</strong> {{ application.account_name }}</label>
+        </div>
+        <div class="form-group">
+          <label for="reason"><strong>申请时间：</strong> {{ application.create_time }}</label>
+        </div>
+        <div class="form-group">
+          <label for="reason"><strong>申请原因：</strong></label>
+          <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ application.reason }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sql_content">SQL 内容：</label>
+          <div class="sql_content">
+            <textarea rows="10" name="sql_content" id="sql_content" disabled>{{ sql_content }}</textarea>
+          </div>
+        </div>
+
+        <a class="btn btn-danger" href="javascript:exec_application({{ application.id }})">
+            <span class="glyphicon glyphicon-triangle-right"></span>&nbsp;执行</a>
+      </div>
+
+      <h5>执行结果：</h3>
+      <div id="exe_result">
+      </div>
+  </div>
+</div>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="/static/codemirror/codemirror.js"></script>
+  <script src="/static/codemirror/mode/sql/sql.js"></script>
+  <script src="/static/codemirror/hint/show-hint.js"></script>
+  <script src="/static/codemirror/hint/sql-hint.js"></script>
+
+  <script type="application/javascript">
+    $("#nav_update_application").addClass("active")
+
+    var  myCodeMirror;
+
+    function initCodeMirror(){
+      myTextArea = document.getElementById("sql_content")
+
+      myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
+          mode: "text/x-mysql",
+          lineNumbers: true
+      });
+
+    }
+    initCodeMirror();
+
+    function exec_application(application_id){
+      if(confirm("确定要执行么?")){
+        $.post("/dbmaster/exec_sql_application/",{
+            "application_id" : application_id
+        },function(data){
+          console.log(data)
+          $("#exe_result").html()
+          html = "";
+          html += "<table class='table table-bordered'>"
+          for(i in data.exec_result){
+            console.log(data.exec_result[i])
+            html += "<tr>"
+            for (j in data.exec_result[i]){
+              html += "<td>"+data.exec_result[i][j]+"</td>"
+            }
+            html += "</tr>"
+
+
+          }
+          html += "</table>"
+          $("#exe_result").html(html)
+        });
+      }
+    }
+
+  </script>
+{% endblock %}
+
+
+

@@ -4,8 +4,7 @@
 
 <div class="container">
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
+      <div class="col-md-12">
         <div class="page-header"> <h3>线上数据库变更单</h3></div>
         <p class="pull-right">
           <a class="btn btn-primary" href="/dbmaster/new_update_application/">
@@ -13,21 +12,28 @@
         </p>
         <table class="table table-bordered">
           <tr class="info">
-            <th width="20%">申请时间</th>
-            <th>申请原因</th>
-            <th>变更内容</th>
-            <th>当前操作人</th>
-            <th>状态</th>
+            <th width="6%">申请人</th>
+            <th width="13%">申请时间</th>
+            <th width="23%">申请原因</th>
+            <th width="38%">变更内容</th>
+            <th width="8%">当前操作人</th>
+            <th width="6%">状态</th>
+            <th width="6%">操作</th>
           </tr>
         {% for a in application_list %}
         <tr>
+          <td>{{a.account_name}}</td>
           <td>{{a.create_time}}</td>
           <td>{{a.reason}}</td>
           <td>
-            <pre>{{a.sql_content}}</pre>
+            {{a.sql_content}}
           </td>
           <td>{{a.opt_account_name}}</td>
           <td>{{a.status}}</td>
+          <td>
+          <a class="btn btn-success" href="/dbmaster/audit_sql_application/{{ a.id }}">
+            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;审核</a>
+          </td>
       </tr>
         {% endfor %}
         </table>
@@ -39,6 +45,9 @@
 {% block js %}
 <script type="text/javascript">
     $("#nav_update_application").addClass("active")
+
+
+    
 
 </script>
 
