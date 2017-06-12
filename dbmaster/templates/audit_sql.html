@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/codemirror/codemirror.css">
+<link rel="stylesheet" href="/static/codemirror/hint/show-hint.css">
+{% endblock %}
+{% block content %}
+<div class="container content">
+
+<div class="row">
+
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <h3 class="page-header">
+        SQL 审核
+      </h3>
+      <div class="">
+        <div class="form-group">
+          <label for="sql_content">SQL 内容：</label>
+          <div class="sql_content">
+            <textarea rows="10" name="sql_content" id="sql_content" disabled>{{ sql_content }}</textarea>
+          </div>
+        </div>
+        <a class="btn btn-danger" id="btn_exec" href="javascript:exec_application()">
+            <span class="glyphicon glyphicon-triangle-right"></span>&nbsp;执行</a>
+      </div>
+
+      <h5>执行结果：</h3>
+      <table class="table table-bordered">
+        <thead class="text-info">
+          <th>ID</th>
+          <th>stage</th>
+          <th>errlevel</th>
+          <th>stagestatus</th>
+          <th>errormessage</th>
+          <th>SQL</th>
+          <th>affected_rows</th>
+          <th>sequence</th>
+          <th>backup_dbname</th>
+          <th>execute_time</th>
+          <th>SQLSHA1</th>
+        </thead>
+        <tbody id="exe_result">
+          
+        </tbody>
+      <table>
+  </div>
+</div>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="/static/codemirror/codemirror.js"></script>
+  <script src="/static/codemirror/mode/sql/sql.js"></script>
+  <script src="/static/codemirror/hint/show-hint.js"></script>
+  <script src="/static/codemirror/hint/sql-hint.js"></script>
+
+  <script type="application/javascript">
+    $("#nav_audit_sql").addClass("active")
+
+    var  myCodeMirror;
+
+    function initCodeMirror(){
+      myTextArea = document.getElementById("sql_content")
+
+      myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
+          mode: "text/x-mysql",
+          lineNumbers: true
+      });
+
+    }
+    initCodeMirror();
+
+    function exec_application(){
+      var sql_content = myCodeMirror.getValue();
+      $("#btn_exec").attr("disabled","disabled");
+      $.post("/dbmaster/audit_sql/",{
+          "sql_content" : sql_content
+      },function(data){
+        console.log(data)
+        $("#exe_result").html()
+        html = "";
+        for(i in data.exec_result){
+          console.log(data.exec_result[i])
+          if(data.exec_result[i][2] == 0){
+            html += "<tr class='success'>"
+          }else if(data.exec_result[i][2] == 1){
+            html += "<tr class='warning'>"
+          }else{
+            html += "<tr class='danger'>"
+          }
+          for (j in data.exec_result[i]){
+            html += "<td>"+data.exec_result[i][j]+"</td>"
+          }
+          html += "</tr>"
+        }
+        $("#btn_exec").removeAttr("disabled");
+
+        $("#exe_result").html(html)
+      });
+    }
+
+  </script>
+{% endblock %}
+
+
+

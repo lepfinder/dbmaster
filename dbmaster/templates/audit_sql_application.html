@@ -71,7 +71,6 @@
     initCodeMirror();
 
     function exec_application(application_id){
-      if(confirm("确定要执行么?")){
         $.post("/dbmaster/exec_sql_application/",{
             "application_id" : application_id
         },function(data){
@@ -92,7 +91,6 @@
           html += "</table>"
           $("#exe_result").html(html)
         });
-      }
     }
 
   </script>
