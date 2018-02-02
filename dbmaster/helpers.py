@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
+from __future__ import absolute_import, print_function
 
 import datetime
-from models import Syslog
+from .models import Syslog
 from dbmaster.extensions import db
 
 

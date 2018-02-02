@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+from __future__ import absolute_import, print_function
 
 import datetime
 
@@ -81,7 +82,7 @@ def oa_login():
     else:
         login_name = request.args.get('login_name', '')
         name = request.args.get('name', '').encode("utf-8")
-    print "oa_login,login_name =", login_name, ",name =", name
+    print ("oa_login,login_name =", login_name, ",name =", name)
 
     if login_name and name:
         account = Account.query.filter_by(login_name=login_name).first()
