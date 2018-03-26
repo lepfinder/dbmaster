@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+from __future__ import absolute_import, print_function
 
 import json
 import sqlparse
@@ -14,6 +15,7 @@ from dbmaster.models import  Querylog, Syslog, UpdateApplication
 from dbmaster.helpers import save_syslog
 from dbmaster.extensions import db
 from dbmaster.dbutils import DbUtil
+import pymysql; pymysql.install_as_MySQLdb()
 import MySQLdb
 
 
@@ -132,7 +134,7 @@ def audit_sql():
 
         exec_result = []
         if sql_content:
-            print sql_content
+            print (sql_content)
 
             sql='''/*--user=root;--password=123456;--host=11.11.11.12;--enable-execute;--port=3306;*/\
                 inception_magic_start;\
@@ -145,14 +147,14 @@ def audit_sql():
                 result=cur.fetchall()
                 num_fields = len(cur.description)
                 field_names = [i[0] for i in cur.description]
-                print field_names
+                print (field_names)
                 for row in result:
-                    print row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10]
+                    print (row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10])
                     exec_result.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]))
                 cur.close()
                 conn.close()
-            except MySQLdb.Error,e:
-                         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            except MySQLdb.Error as e:
+                         print ("Mysql Error %d: %s" % (e.args[0], e.args[1]))
 
         return jsonify({
             "code": 200,
@@ -161,7 +163,7 @@ def audit_sql():
         })
 
     except Exception as e:
-        print e
+        print (e)
         return jsonify({
             "code": 500,
             "message": "%s" % e
@@ -177,7 +179,7 @@ def exec_sql_application():
         application = UpdateApplication.query.filter_by(id=application_id).first()
         exec_result = []
         if application:
-            print application.sql_content
+            print (application.sql_content)
 
             sql='''/*--user=root;--password=123456;--host=11.11.11.12;--execute=1;--port=3306;*/\
                 inception_magic_start;\
@@ -190,14 +192,14 @@ def exec_sql_application():
                 result=cur.fetchall()
                 num_fields = len(cur.description)
                 field_names = [i[0] for i in cur.description]
-                print field_names
+                print (field_names)
                 for row in result:
-                    print row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10]
+                    print (row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10])
                     exec_result.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]))
                 cur.close()
                 conn.close()
-            except MySQLdb.Error,e:
-                         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            except MySQLdb.Error as e:
+                         print ("Mysql Error %d: %s" % (e.args[0], e.args[1]))
 
         return jsonify({
             "code": 200,
@@ -206,7 +208,7 @@ def exec_sql_application():
         })
 
     except Exception as e:
-        print e
+        print (e)
         return jsonify({
             "code": 500,
             "message": "%s" % e
@@ -271,7 +273,7 @@ def table_desc():
     table_schema = request.form['table_schema']
     table_name = request.form['table_name']
 
-    print "table_desc:",table_schema,table_name
+    print ("table_desc:",table_schema,table_name)
     sql = """
     select ORDINAL_POSITION,COLUMN_NAME,
     COLUMN_TYPE,COLUMN_DEFAULT,IS_NULLABLE,
@@ -300,7 +302,7 @@ def sql_format():
     sql_content = request.form['sql_content']
     sql_content = sqlparse.format(sql_content,reindent=True)
 
-    print sql_content
+    print (sql_content)
     return jsonify({
         "code": 200,
         "message": "success",
@@ -331,7 +333,7 @@ def db_execute():
         })
 
     except Exception as e:
-        print e
+        print (e)
         return jsonify({
             "code": 500,
             "message": "%s" % e
@@ -341,7 +343,7 @@ def db_execute():
 
 
 def get_exec_result(sql_content):
-    print "[get_exec_result]", sql_content
+    print ("[get_exec_result]", sql_content)
     result_set = []
     
     if 'limit' not in sql_content and 'LIMIT' not in sql_content:
@@ -352,7 +354,7 @@ def get_exec_result(sql_content):
     t_end = time.time()
     cost_time = "%5s" % "{:.4f}".format(t_end - t_start)
 
-    print "[db_execute]sql_content = %s,cost time %s" % (sql_content,cost_time)
+    print ("[db_execute]sql_content = %s,cost time %s" % (sql_content,cost_time))
     cursor = exec_result.cursor
     titles = cursor.description
     for i in exec_result:

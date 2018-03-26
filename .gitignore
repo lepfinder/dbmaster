@@ -1,5 +1,5 @@
 *.pyc
 venv/*
 idea/*
-
+sftp-config.json
 .idea/*

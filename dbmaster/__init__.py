@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 #coding=utf-8
+from __future__ import absolute_import, print_function
 
 from flask import Flask,g
 
 from dbmaster import views
 from dbmaster.extensions import db, login_manager
-from dbutils import DbUtil
+from .dbutils import DbUtil
 
 DEFAULT_APP_NAME = 'dbmaster'
 
