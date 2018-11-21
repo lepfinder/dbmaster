@@ -39,11 +39,17 @@ db.sql
 config.cfg
 
 # 启动服务器
+
+python manager.py runserver
+
+或则使用gunicorn
+
 gunicorn -w 4 -b 127.0.0.1:8880 wsgi:application
 
 nohup gunicorn -w 2 -b 10.37.5.116:8880 wsgi:application 2>&1 &
 
 访问: http://localhost:8880/dbmaster/
+使用 admin/admin登录
 ```
 
 ### 支持的快捷键
