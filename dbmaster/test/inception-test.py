@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 #coding=utf8
+from __future__ import absolute_import, print_function
+
+import pymysql; pymysql.install_as_MySQLdb()
 import MySQLdb
 sql='''/*--user=root;--password=123456;--host=11.11.11.12;--execute=1;--port=3306;*/\
     inception_magic_start;\
@@ -14,10 +17,10 @@ try:
         result=cur.fetchall()
         num_fields = len(cur.description)
         field_names = [i[0] for i in cur.description]
-        print field_names
+        print (field_names)
         for row in result:
-                print row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10]
+                print (row[0], "|",row[1],"|",row[2],"|",row[3],"|",row[4],"|",row[5],"|",row[6],"|",row[7],"|",row[8],"|",row[9],"|",row[10])
         cur.close()
         conn.close()
 except MySQLdb.Error,e:
-             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+             print ("Mysql Error %d: %s" % (e.args[0], e.args[1]))
