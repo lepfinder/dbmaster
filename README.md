@@ -1,4 +1,8 @@
+
+[![Python](https://img.shields.io/badge/Python-3.5%2B-blue.svg)](https://www.python.org)
+
 ## 介绍
+
 dbmaster是一个python编写的在线数据库查询客户端，可以有效隔离线上数据库环境，提供了一系列便于开发者使用的特性。操作体验尽量兼容navcat。
 github地址：https://github.com/lepfinder/dbmaster
 
@@ -69,11 +73,11 @@ nohup gunicorn -w 2 -b 10.37.5.116:8880 wsgi:application 2>&1 &
 
 
 ### 运行效果图
-![](http://7xo9p3.com1.z0.glb.clouddn.com/markdown/1490931779997.png?imageMogr2/thumbnail/!100p/quality/100!)
+![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490931779997.png?x-oss-process=image/resize,p_50)
 
-![](http://7xo9p3.com1.z0.glb.clouddn.com/markdown/1490931809868.png?imageMogr2/thumbnail/!100p/quality/100!)
+![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490931809868.png?x-oss-process=image/resize,p_50)
 
-![](http://7xo9p3.com1.z0.glb.clouddn.com/markdown/1490922673923.png?imageMogr2/thumbnail/!100p/quality/100!)
+![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490922673923.png?x-oss-process=image/resize,p_50)
 
 
 ### 相关辅助插件
