@@ -46,8 +46,8 @@ def loadSchecma():
     result = DbUtil.fetch(schema_sql)
 
     for d in result:
-        # print d[0], d[1]
-        if not databases_schema.has_key(d[0]):
+        print(d[0], d[1])
+        if d[0] not in databases_schema.keys():
             databases_schema[d[0]] = []
         databases_schema[d[0]].append(d[1])
 
@@ -60,7 +60,7 @@ def index():
     query_list = Querylog.query.filter_by(account_id=current_user.id).order_by(Querylog.id.desc()).limit(1)
 
     sql_content = ''
-    print "query_list.len=",len(query_list.all())
+    print ("query_list.len=",len(query_list.all()))
     if len(query_list.all())>0:
         sql_content = query_list[0].content
     return render_template("index.html", databases=databases_schema,sql_content = sql_content)
