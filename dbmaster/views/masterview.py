@@ -60,7 +60,8 @@ def index():
     query_list = Querylog.query.filter_by(account_id=current_user.id).order_by(Querylog.id.desc()).limit(1)
 
     sql_content = ''
-    if query_list:
+    print "query_list.len=",len(query_list.all())
+    if len(query_list.all())>0:
         sql_content = query_list[0].content
     return render_template("index.html", databases=databases_schema,sql_content = sql_content)
 
