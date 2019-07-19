@@ -73,11 +73,11 @@ nohup gunicorn -w 2 -b 10.37.5.116:8880 wsgi:application 2>&1 &
 
 
 ### 运行效果图
-![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490931779997.png?x-oss-process=image/resize,p_50)
+![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490931779997.png?x-oss-process=image/resize)
 
-![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490931809868.png?x-oss-process=image/resize,p_50)
+![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490931809868.png?x-oss-process=image/resize)
 
-![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490922673923.png?x-oss-process=image/resize,p_50)
+![](http://lepfinder-wiki.oss-cn-beijing.aliyuncs.com/markdown/1490922673923.png?x-oss-process=image/resize)
 
 
 ### 相关辅助插件
